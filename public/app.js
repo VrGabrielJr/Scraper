@@ -7,14 +7,20 @@
 //     }
 //   });
 
-  $document.on('click', '#scrape', function() {
-    $.getJSON("/results", function(data) {
-        // For each one
+  $(document).on('click', '#scrape', function() {
+    $.ajax({
+      method: "GET",
+      url: '/scrape'
+    })
+    .then(function(data) {
+      $.getJSON("/results", function(data) {
+        console.log(data);
         for (var i = 0; i < data.length; i++) {
           // Display the apropos information on the page
           $("#results").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
         }
       });
+    })
   });
   
   
